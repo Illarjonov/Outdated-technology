@@ -11,7 +11,9 @@ const AnswersList =(props) =>{
                       <AnswerItem
                           key={index}
                           answer={answer}
-                          onAnswerClickHendler= {props.onAnswerClickHendler}/>
+                          onAnswerClickHendler= {props.onAnswerClickHendler}
+                          answerState={props.answerState ? props.answerState[answer.id]:null} /> 
+                          //проверка чтобы не нулл
                           )
                 }       ) }
 
