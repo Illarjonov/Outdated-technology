@@ -12,7 +12,6 @@ const AnswerItem = (props) => {
 
     <li className={cls.join(' ')}
         onClick={()=>props.onAnswerClickHendler(props.answer.id)}>
-
     {props.answer.text}
 
     </li>
