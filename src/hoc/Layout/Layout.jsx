@@ -2,6 +2,7 @@ import React, {Component} from 'react';
 import './Layout.scss';
 import MenuToggle from '../../components/navigation/menuToggle/menuToggle';
 import Drawer from '../../components/navigation/drawer/drawer.jsx';
+
 class Layout extends Component {
 
   state={
