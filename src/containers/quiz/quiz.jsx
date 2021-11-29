@@ -2,6 +2,7 @@ import React, {Component} from 'react';
 import './quiz.scss';
 import ActiveQuiz from '../../components/activeQuiz/activeQuiz';
 import FinishedQuiz from '../../components/finishedQuiz/finishedQuiz.jsx';
+
 class Quiz extends Component {
   state = {
         results:{},// { [id]:success, error }
@@ -86,10 +87,13 @@ class Quiz extends Component {
         }
       }
 
-      isQuizFinished() {
-        return this.state.activeQuestion + 1 === this.state.quiz.length
-        //проверить последний ли вопрос
-  }
+    isQuizFinished() {
+          return this.state.activeQuestion + 1 === this.state.quiz.length
+      }    //проверить последний ли вопрос
+
+    // componentDidMount(){
+    //   console.log('Quiz ID = ', + this.props.params.id)
+    // }
 
   render(){
     return(
