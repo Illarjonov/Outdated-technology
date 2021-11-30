@@ -34,7 +34,9 @@ const successCount = Object.keys(props.results).reduce(
 
             <p className = {''}> Правильно {successCount} из {props.quiz.length}</p>
       <div>
+
           <Button onClick = {props.onRetry} type= "primary"> Повторить</Button>
+          
             <Link to = '/'>
           <Button type= "success"> Вернуться в список тестов</Button>
             </Link>
