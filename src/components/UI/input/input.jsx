@@ -1,9 +1,9 @@
 import React from 'react';
 import classes from './input.module.scss';
 
-function isInvalid ({valid, touched, shouldValidate}) {
+function isInvalid({valid, touched, shouldValidate}) {
   return !valid && shouldValidate && touched
-  }
+}
 
 
 const Input = (props) => {
@@ -25,9 +25,11 @@ const Input = (props) => {
         onChange= {props.onChange}
       />
 
-      {isInvalid(props)
-      ? <span> {props.errorMessege||'введите верное значение'} </span>
-      :null}
+      {
+         isInvalid(props)
+           ? <span>{props.errorMessage || 'Введите верное значение'}</span>
+           : null
+       }
 
     </div>
   )

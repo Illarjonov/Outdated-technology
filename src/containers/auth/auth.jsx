@@ -2,15 +2,12 @@ import React, {Component} from 'react';
 import classes from './auth.module.scss';
 import Button from '../../components/UI/botton/button'
 import Input from '../../components/UI/input/input'
-
-function validateEmail(email) {
-    const re = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
-    return re.test(String(email).toLowerCase());
-}
+import is from 'is_js'
 
 export default class Auth extends Component{
 
   state = {
+    isFormValid: false,
     formControls: {
       email: {
         value: '',
@@ -60,15 +57,16 @@ export default class Auth extends Component{
         isValid = value.trim() !== '' && isValid
     }
     if (validation.email) {
-        isValid = validateEmail(value) && isValid
-
-    }
+        isValid = is.email(value) && isValid
+    }//is.js
     if (validation.minLength) {
         isValid = value.length >= validation.minLength && isValid
     }
+
     return isValid
   }
 
+//чтобы мутабельности не было
   onChangeHandler = (event, controlName) => {
      const formControls = { ...this.state.formControls }
      const control = { ...formControls[controlName] }
@@ -88,6 +86,7 @@ export default class Auth extends Component{
      this.setState({
        formControls, isFormValid
      })
+
    }
 
 
@@ -127,10 +126,12 @@ export default class Auth extends Component{
                 <Button
                   type = "success"
                   onClick = {this.loginHendler}
+                  disabled={!this.state.isFormValid}
                 > Войти </Button>
                 <Button
                   type = "primary"
                   onClick = {this.registerHendler}
+                  disabled={!this.state.isFormValid}
                   > Регистрация </Button>
 
           </form>
