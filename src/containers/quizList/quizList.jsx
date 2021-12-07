@@ -18,12 +18,13 @@ export default class QuizList extends Component{
       })
     }
 
-    componentDidMount () {
-      axios.get(`https://react-quiz-main-default-rtdb.europe-west1.firebasedatabase.app/quiz.json`).then(response =>{
-        console.log(response)
-      })
+    async componentDidMount () {
+  try {  const response = await axios.get(`https://react-quiz-main-default-rtdb.europe-west1.firebasedatabase.app/quizes.json`)
+      console.log(response.data)
+    } catch (e){
+      console.log(e)
     }
-
+}
   render(){
     return(
       <div className ={classes.QuizList}>
