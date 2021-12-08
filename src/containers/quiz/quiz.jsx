@@ -2,6 +2,8 @@ import React, {Component} from 'react';
 import './quiz.scss';
 import ActiveQuiz from '../../components/activeQuiz/activeQuiz';
 import FinishedQuiz from '../../components/finishedQuiz/finishedQuiz.jsx';
+import axios from '../../axios/axios-quiz';
+import Loader from '../../components/UI/loader/loader';
 
 class Quiz extends Component {
   state = {
@@ -10,32 +12,8 @@ class Quiz extends Component {
         isFinished: false,
         activeQuestion: 0,
         answerState:null, //информация о текущем клике {id: 'success' 'error'}
-        quiz: [
-          {
-              question:'Вопрос?',
-              rightAnswerId: 2 ,
-              id: 1,
-              answers: [
-                {text:'Ответ 1', id: 1},
-                {text:'Ответ 2', id: 2},
-                {text:'Ответ 3 ', id: 3},
-                {text:'Ответ 4', id: 4}
-              ]
-        },
-        {
-              question:'В каком году основали СПБ?',
-              rightAnswerId: 3 ,
-              id: 2,
-              answers: [
-                {text:'Ответ да', id: 1},
-                {text:'Ответ нет', id: 2},
-                {text:'Основали! ', id: 3},
-                {text:'В году?', id: 4}
-              ]
-
-      },
-
-          ]
+        quiz: [],
+        loading: true
   }
 
   onAnswerClickHendler=(answerId)=>{ //onClick
@@ -91,28 +69,40 @@ class Quiz extends Component {
           return this.state.activeQuestion + 1 === this.state.quiz.length
       }    //проверить последний ли вопрос
 
-    // componentDidMount(){
-    //   console.log('Quiz ID = ', + this.props.params.id)
-    // }
+  async componentDidMount (){
+      try {
+        const response = await axios.get(`/quizes/${this.props.match.params.id}.json`)
+        const quiz = response.data
+
+      this.setState({
+        quiz,
+        loading: false
+      })
+    } catch (e) {
+      console.log(e)
+      }
+      console.log('Quiz ID =', )
+    }
 
   render(){
     return(
       <div className="Quiz">
             <div className={"QuizWrapper"}>
                 <h1>Ответь на все вопросы</h1>
-                {
-                  this.state.isFinished
-                  ?<FinishedQuiz
-                      results= {this.state.results}
-                      quiz= {this.state.quiz}
-                      />
-                  : <ActiveQuiz
-                      answers={this.state.quiz[this.state.activeQuestion].answers}
-                      question={this.state.quiz[this.state.activeQuestion].question}
-                      onAnswerClickHendler={this.onAnswerClickHendler}
-                      quizLength={this.state.quiz.length}
-                      answerNumber={this.state.activeQuestion + 1}
-                      answerState={this.state.answerState}/>
+                { this.state.loading
+                    ? <Loader/>
+                    :  this.state.isFinished
+                        ?<FinishedQuiz
+                            results= {this.state.results}
+                            quiz= {this.state.quiz}
+                            />
+                        : <ActiveQuiz
+                            answers={this.state.quiz[this.state.activeQuestion].answers}
+                            question={this.state.quiz[this.state.activeQuestion].question}
+                            onAnswerClickHendler={this.onAnswerClickHendler}
+                            quizLength={this.state.quiz.length}
+                            answerNumber={this.state.activeQuestion + 1}
+                            answerState={this.state.answerState}/>
                 }
             </div>
       </div>
