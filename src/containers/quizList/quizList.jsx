@@ -28,7 +28,6 @@ export default class QuizList extends Component{
      async componentDidMount() {
        try {
          const response = await axios.get('/quizes.json')
-
          const quizes = []
 
          Object.keys(response.data).forEach((key, index) => {

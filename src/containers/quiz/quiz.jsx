@@ -4,15 +4,40 @@ import ActiveQuiz from '../../components/activeQuiz/activeQuiz';
 import FinishedQuiz from '../../components/finishedQuiz/finishedQuiz.jsx';
 import axios from '../../axios/axios-quiz';
 import Loader from '../../components/UI/loader/loader'
+import {useLocation} from 'react-router-dom'
+
+const url = useLocation;
+console.log(url);
 
 class Quiz extends Component {
   state = {
         results:{},// { [id]:success, error }
-
         isFinished: false,
         activeQuestion: 0,
         answerState:null, //информация о текущем клике {id: 'success' 'error'}
-        quiz: [],
+        quiz: [{
+              question:'Вопрос?',
+              rightAnswerId: 2 ,
+              id: 1,
+              answers: [
+                {text:'Ответ 1', id: 1},
+                {text:'Ответ 2', id: 2},
+                {text:'Ответ 3 ', id: 3},
+                {text:'Ответ 4', id: 4}
+              ]
+        },
+        {
+              question:'В каком году основали СПБ?',
+              rightAnswerId: 3 ,
+              id: 2,
+              answers: [
+                {text:'Ответ да', id: 1},
+                {text:'Ответ нет', id: 2},
+                {text:'Основали! ', id: 3},
+                {text:'В году?', id: 4}
+              ]
+
+      },],
         loading: true
   }
 
@@ -71,12 +96,13 @@ class Quiz extends Component {
 
   async componentDidMount (){
       try {
-      const response = await axios.get(`/quizes/${this.props.match.params.id}.json`)
+       const response = await axios.get(`/quizes.${this.props.match.params.index}.json`)
       const quiz = response.data
 
       this.setState({
         quiz,
-        loading: false
+        loading: false,
+
       })
     } catch (e) {
       console.log(e)
@@ -96,7 +122,7 @@ class Quiz extends Component {
                           quiz={this.state.quiz}
                           onRetry={this.retryHandler}
                   />
-                  :  <ActiveQuiz
+                  :   <ActiveQuiz
                           answers={this.state.quiz[this.state.activeQuestion].answers}
                           question={this.state.quiz[this.state.activeQuestion].question}
                           onAnswerClick={this.onAnswerClickHandler}
