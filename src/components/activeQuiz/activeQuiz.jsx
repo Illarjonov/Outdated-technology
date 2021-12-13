@@ -2,7 +2,10 @@ import React from 'react';
 import './activeQuiz.scss';
 import AnswersList from '../answersList/answersList';
 
+
 const ActiveQuiz = props => {
+
+
     return(
   <div className= {"ActiveQuiz"}>
     <p className= {"Question"}>

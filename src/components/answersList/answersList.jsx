@@ -12,7 +12,7 @@ const AnswersList =(props) =>{
                           key={index}
                           answer={answer}
                           onAnswerClickHendler= {props.onAnswerClickHendler}
-                          answerState={props.answerState ? props.answerState[answer.id]:null} />
+                          answerState={props.answerState ? props.answerState[answer.id] : null} />
                           //проверка чтобы не нулл
                           )
                 }       ) }

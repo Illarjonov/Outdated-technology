@@ -4,10 +4,6 @@ import ActiveQuiz from '../../components/activeQuiz/activeQuiz';
 import FinishedQuiz from '../../components/finishedQuiz/finishedQuiz.jsx';
 import axios from '../../axios/axios-quiz';
 import Loader from '../../components/UI/loader/loader'
-import {useLocation} from 'react-router-dom'
-
-const url = useLocation;
-console.log(url);
 
 class Quiz extends Component {
   state = {
@@ -15,29 +11,7 @@ class Quiz extends Component {
         isFinished: false,
         activeQuestion: 0,
         answerState:null, //информация о текущем клике {id: 'success' 'error'}
-        quiz: [{
-              question:'Вопрос?',
-              rightAnswerId: 2 ,
-              id: 1,
-              answers: [
-                {text:'Ответ 1', id: 1},
-                {text:'Ответ 2', id: 2},
-                {text:'Ответ 3 ', id: 3},
-                {text:'Ответ 4', id: 4}
-              ]
-        },
-        {
-              question:'В каком году основали СПБ?',
-              rightAnswerId: 3 ,
-              id: 2,
-              answers: [
-                {text:'Ответ да', id: 1},
-                {text:'Ответ нет', id: 2},
-                {text:'Основали! ', id: 3},
-                {text:'В году?', id: 4}
-              ]
-
-      },],
+        quiz: [],
         loading: true
   }
 
@@ -96,7 +70,7 @@ class Quiz extends Component {
 
   async componentDidMount (){
       try {
-       const response = await axios.get(`/quizes.${this.props.match.params.index}.json`)
+       const response = await axios.get(`/quizes/${this.props.match.params.index}/0.json`)
       const quiz = response.data
 
       this.setState({

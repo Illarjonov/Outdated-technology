@@ -12,6 +12,7 @@ export default class QuizList extends Component{
     }
 
     renderQuizes() {
+
        return this.state.quizes.map(quiz => {
          return (
            <li
@@ -24,6 +25,7 @@ export default class QuizList extends Component{
          )
        })
      }
+
 
      async componentDidMount() {
        try {
